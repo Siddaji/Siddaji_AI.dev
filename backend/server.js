@@ -1,22 +1,25 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import connectDB from './config/db.config.js'
+import express from "express";
+import connectDB from "./config/db.config.js";
+import dotenv from "dotenv";
+import projectRoutes from "./routes/projectRoutes.js";
+
 dotenv.config();
-
-const app = express()
-
-
 connectDB();
 
-app.get('/', (req, res) => {
-  res.send('AI powered personal portfolio')
-})
-app.get('/login', (req, res) => {
-  res.send('this is login page')
-})
+const app = express();
 
-const PORT=process.env.PORT ||5000;
+
+app.use(express.json());
+
+
+app.use("/api/projects", projectRoutes);
+
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
-})
-
+  console.log(`Server running on port ${PORT}`);
+});

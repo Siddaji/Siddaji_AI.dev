@@ -1,16 +1,29 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/projects")
+      .then((res) => res.json())
+      .then((data) => setProjects(data));
+  }, []);
 
   return (
-    <>
-      <h1 className='bg-red-600 text-3xl p-2 '>hello world</h1>
-    </>
-  )
+    <div>
+      <h1>My Projects</h1>
+      <ul>
+        {projects.map((p) => (
+          <li key={p._id}>
+            <h3>{p.title}</h3>
+            <p>{p.description}</p>
+            <a href={p.githubLink}>GitHub</a> | <a href={p.liveLink}>Live</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default App;
