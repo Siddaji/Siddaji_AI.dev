@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
 import Projects from "./Pages/Project";
 import Contact from "./Pages/Contact";
+import AboutMe from "./Pages/AboutMe";
+import Skills from "./Pages/Skills";
 
 export default function App() {
   return (
@@ -11,7 +13,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/aboutme" element={<AboutMe />} />
+        <Route path="/skills" element={<Skills />} />
+         <Route path="/contact" element={<Contact />} />
       </Routes>
     </>
   );
