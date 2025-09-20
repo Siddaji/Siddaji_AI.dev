@@ -1,23 +1,37 @@
+import { ReactTyped } from "react-typed";
+import "../App.css";
 
-import React from 'react';
-
-export default function Home(){
+function Home() {
   return (
-    <section id="home" className="hero">
-      <div className="hero-left">
-        <h1>Hi, I’m <span style={{color:'#00d4b8'}}>Siddaji</span> — I build AI powered web apps</h1>
-        <p>I build production-ready interfaces and connect them to powerful AI backends. I specialize in Node, React and deploying real products.</p>
-        <div className="hero-actions">
-          <a href="/projects" className="btn btn-primary">View Projects</a>
-          <a href="/contact" className="btn btn-outline">Contact</a>
-        </div>
-      </div>
+    <section className="home">
+      <div className="intro">
+        <h1 className="title">
+          Hello, I’m <span className="highlight">Siddaji</span> 
+        </h1>
 
-      <div className="hero-card">
-        <img src="https://images.unsplash.com/photo-1526378727608-3a8e7efb6a3b?q=80&w=1200&auto=format&fit=crop" alt="AI"/>
-        <h3>Featured: AI Chatbot</h3>
-        <p className="text-muted">An interactive chatbot demo with OpenAI integration and conversation memory.</p>
+        <ReactTyped
+          strings={[
+            "AI Enthusiast",
+            "Full Stack Developer",
+            "Creating Intelligent Web Solutions",
+          ]}
+          typeSpeed={60}
+          backSpeed={40}
+          loop
+          className="typed-text"
+        />
+
+        <div className="cta-buttons">
+          <a href="#projects" className="btn primary">
+            View My Work
+          </a>
+          <a href="#contact" className="btn secondary">
+            Contact Me
+          </a>
+        </div>
       </div>
     </section>
   );
 }
+
+export default Home;

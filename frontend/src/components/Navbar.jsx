@@ -11,7 +11,7 @@ export default function Navbar(){
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/projects" className="nav-link">Projects</Link>
         <Link to="/contact" className="nav-link">Contact</Link>
-        <Link to="/projects" className="nav-cta">View Work</Link>
+        
       </nav>
     </header>
   );

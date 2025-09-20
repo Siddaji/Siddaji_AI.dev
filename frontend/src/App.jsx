@@ -1,10 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
-import Projects from "./Pages/Project";
-import Contact from "./Pages/Contact";
-import AboutMe from "./Pages/AboutMe";
-import Skills from "./Pages/Skills";
+
+
 
 export default function App() {
   return (
@@ -12,10 +10,6 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/aboutme" element={<AboutMe />} />
-        <Route path="/skills" element={<Skills />} />
-         <Route path="/contact" element={<Contact />} />
       </Routes>
     </>
   );
