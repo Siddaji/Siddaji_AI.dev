@@ -1,5 +1,5 @@
 import { ReactTyped } from "react-typed";
-import "../App.css";
+import "./Home.css";
 
 function Home() {
   return (
