@@ -10,6 +10,7 @@ export default function Navbar(){
       <nav className="nav-right">
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/about" className="nav-link">About</Link>
+        <Link to="/skills" className="nav-link">Skills</Link>
         
       </nav>
     </header>
