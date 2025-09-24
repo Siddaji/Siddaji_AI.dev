@@ -1,67 +1,60 @@
+
 import React from "react";
-import "./Projects.css";
 
 const projects = [
   {
     title: "AI Chatbot",
-    description:
-      "An AI-powered chatbot built with Node.js, Express, and OpenAI API. Handles real-time conversations and stores history in MongoDB.",
+    description: "AI chatbot with conversation memory and OpenAI integration.",
     tech: ["Node.js", "Express", "MongoDB", "OpenAI"],
     img: "/projects/ai-chatbot.png",
-    link: "#",
+    liveLink: "#",
+    repoLink: "#",
   },
   {
     title: "Portfolio Website",
-    description:
-      "A personal portfolio to showcase my skills, projects, and achievements with a modern UI.",
-    tech: ["React", "CSS3", "Framer Motion"],
+    description: "Personal portfolio built with React and clean UI.",
+    tech: ["React", "CSS"],
     img: "/projects/portfolio.png",
-    link: "#",
+    liveLink: "#",
+    repoLink: "#",
   },
   {
     title: "Task Manager App",
-    description:
-      "A full-stack application to manage daily tasks, with authentication and cloud storage.",
+    description: "Full-stack app with authentication and CRUD.",
     tech: ["React", "Node.js", "MongoDB"],
     img: "/projects/task-manager.png",
-    link: "#",
-  },
-  {
-    title: "Ecommerce website",
-    description:
-      "A full-stack application to manage daily tasks, with authentication and cloud storage.",
-    tech: ["React", "Node.js", "MongoDB"],
-    img: "/projects/ecommerce.png",
-    link: "#",
+    liveLink: "#",
+    repoLink: "#",
   },
 ];
 
-function Projects() {
+export default function Projects() {
   return (
-    <section className="projects-section">
-      <h2 className="projects-title"> My Projects</h2>
+    <section id="projects" className="section projects reveal">
+      <h2 className="section-title">Projects</h2>
+
       <div className="projects-grid">
-        {projects.map((proj, index) => (
-          <div className="project-card" key={index}>
-            <img src={proj.img} alt={proj.title} className="project-img" />
-            <h3>{proj.title}</h3>
-            <p>{proj.description}</p>
+        {projects.map((p, i) => (
+          <article key={i} className="project-card">
+            <img src={p.img} alt={p.title} className="project-img" loading="lazy" />
+            <div className="project-body">
+              <h3>{p.title}</h3>
+              <p className="project-desc">{p.description}</p>
 
-            <h4 className="tech-title">Tech Used:</h4>
-            <ul className="tech-list">
-              {proj.tech.map((t, i) => (
-                <li key={i}>{t}</li>
-              ))}
-            </ul>
+              <div className="tech-list">
+                {p.tech.map((t, j) => (
+                  <span key={j} className="tech-pill">{t}</span>
+                ))}
+              </div>
 
-            <a href={proj.link} className="project-link">
-              View Project
-            </a>
-          </div>
+              <div className="card-actions">
+                <a className="btn btn-live" href={p.liveLink} target="_blank" rel="noreferrer">Live</a>
+                <a className="btn btn-code" href={p.repoLink} target="_blank" rel="noreferrer">Code</a>
+              </div>
+            </div>
+          </article>
         ))}
       </div>
     </section>
   );
 }
-
-export default Projects;

@@ -1,25 +1,35 @@
-import { Routes, Route, Router } from "react-router-dom";
+// src/App.jsx
+import React, { useEffect } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./Pages/Home.jsx";
-import About from "./Pages/About.jsx";
-import Skills from "./Pages/Skills.jsx";
-import Projects from "./Pages/Projects.jsx";
-import Contact from "./Pages/Contact.jsx";
-
-
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Skills from "./Pages/Skills";
+import Projects from "./Pages/Projects";
+import Contact from "./Pages/Contact";
 
 export default function App() {
+  
+  useEffect(() => {
+    const items = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.18 });
+    items.forEach((it) => obs.observe(it));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/Skills" element={<Skills />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      
+      <main>
+        <Home />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
     </>
   );
 }

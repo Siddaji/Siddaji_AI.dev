@@ -1,43 +1,32 @@
+
 import React from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter } from "react-icons/fa";
-import "./Contact.css";
 
-const Contact = () => {
+export default function Contact() {
   return (
-    <section className="contact-container">
-      <div className="contact-left">
-        <h2 className="contact-title">Let’s Work Together</h2>
-        <p className="contact-subtitle">
-          I’m always open to discussing new projects, creative ideas, or
-          opportunities to be part of your vision.
-        </p>
+    <section id="contact" className="section contact reveal">
+      <h2 className="section-title">Contact</h2>
 
-        <div className="contact-icons">
-          <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">
-            <FaGithub />
-          </a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noreferrer">
-            <FaLinkedin />
-          </a>
-          <a href="mailto:yourmail@example.com">
-            <FaEnvelope />
-          </a>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noreferrer">
-            <FaTwitter />
-          </a>
+      <div className="contact-grid">
+        <div className="contact-card">
+          <h3>Let's talk</h3>
+          <p>Send a message or reach me on socials.</p>
+
+          <div className="socials">
+            <a href="https://github.com/yourusername" target="_blank" rel="noreferrer"><FaGithub/></a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noreferrer"><FaLinkedin/></a>
+            <a href="mailto:youremail@example.com"><FaEnvelope/></a>
+            <a href="https://twitter.com/yourusername" target="_blank" rel="noreferrer"><FaTwitter/></a>
+          </div>
         </div>
-      </div>
 
-      <div className="contact-right">
-        <form className="contact-form">
-          <input type="text" placeholder=" Name" required />
-          <input type="email" placeholder=" Email" required />
-          <textarea placeholder="Message" rows="6" required></textarea>
-          <button type="submit">Send Message</button>
+        <form className="contact-form" onSubmit={(e)=>{ e.preventDefault(); alert('Demo: message sent') }}>
+          <input name="name" placeholder="Your name" required />
+          <input name="email" placeholder="Your email" required />
+          <textarea name="message" rows="6" placeholder="Message" required />
+          <button type="submit" className="btn btn-primary">Send Message</button>
         </form>
       </div>
     </section>
   );
-};
-
-export default Contact;
+}
