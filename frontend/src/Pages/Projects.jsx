@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const projects = [
@@ -32,21 +31,20 @@ export default function Projects() {
   return (
     <section id="projects" className="section projects reveal">
       <h2 className="section-title">Projects</h2>
-
       <div className="projects-grid">
         {projects.map((p, i) => (
           <article key={i} className="project-card">
-            <img src={p.img} alt={p.title} className="project-img" loading="lazy" />
+            <div className="project-img-container">
+              <img src={p.img} alt={p.title} className="project-img" loading="lazy" />
+            </div>
             <div className="project-body">
               <h3>{p.title}</h3>
               <p className="project-desc">{p.description}</p>
-
               <div className="tech-list">
                 {p.tech.map((t, j) => (
                   <span key={j} className="tech-pill">{t}</span>
                 ))}
               </div>
-
               <div className="card-actions">
                 <a className="btn btn-live" href={p.liveLink} target="_blank" rel="noreferrer">Live</a>
                 <a className="btn btn-code" href={p.repoLink} target="_blank" rel="noreferrer">Code</a>

@@ -6,6 +6,7 @@ import About from "./Pages/About";
 import Skills from "./Pages/Skills";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
+import ChatBot from "./components/chatBot";
 
 export default function App() {
   
@@ -29,7 +30,20 @@ export default function App() {
         <Skills />
         <Projects />
         <Contact />
+        <ChatBot/>
       </main>
     </>
   );
 }
+
+
+<>
+      <Navbar />
+      <main>
+        <Home />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
+    </>

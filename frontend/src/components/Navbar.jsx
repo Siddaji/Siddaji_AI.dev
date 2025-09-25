@@ -1,5 +1,6 @@
-
+import React from "react";
 import useActiveSection from "../hooks/useActiveSection";
+
 
 export default function Navbar() {
   const active = useActiveSection();

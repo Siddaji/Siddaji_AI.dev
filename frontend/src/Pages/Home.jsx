@@ -1,36 +1,33 @@
+import React, { useEffect, useState } from "react";
 
-import React from "react";
-import { ReactTyped } from "react-typed"; 
 
 export default function Home() {
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "🚀 AI Enthusiast | 💻 Fullstack Developer";
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayText(fullText.slice(0, i + 1));
+      i++;
+      if (i === fullText.length) clearInterval(interval);
+    }, 80);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section id="home" className="section hero reveal">
-      <div className="hero-inner">
-        <div>
-          <h1 className="hero-title">
-            Hello, I’m <span className="name">Siddaji</span> 👋
-          </h1>
-
-          <ReactTyped
-            strings={[
-              "AI Enthusiast",
-              "Full Stack Developer",
-              "Building Intelligent Web Solutions",
-            ]}
-            typeSpeed={60}
-            backSpeed={40}
-            loop
-            className="typed-text"
-          />
-
-          <div className="hero-ctas">
-            <a href="#projects" className="btn btn-primary">View Projects</a>
-            <a href="#contact" className="btn btn-outline">Contact Me</a>
-          </div>
-        </div>
-
-        <div className="hero-card">
-          <img src="/projects/ai-chatbot.png" alt="AI preview" />
+    <section id="home" className="section home reveal">
+      <div className="home-content">
+        <h1>
+          Hi, I’m <span>Siddaji</span>
+        </h1>
+        <p className="typing-effect">
+          {displayText}
+          <span className="cursor"></span>
+        </p>
+        <div className="buttons">
+          <a href="#projects" className="btn primary">View Projects</a>
+          <a href="#contact" className="btn secondary">Contact Me</a>
         </div>
       </div>
     </section>
