@@ -1,110 +1,189 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { FaComments, FaTimes } from "react-icons/fa";
 
 
-export default function ChatBot() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi 👋! Ask me anything about AI or my projects." }
-  ]);
+const STORAGE_KEY = "siddaji_chat_history";
+
+const systemPrompt = `You are Siddaji's friendly AI portfolio assistant.
+Siddaji is an AI enthusiast and full-stack developer.
+Projects:
+- AI Chatbot: AI chatbot with conversation memory, OpenAI integration. Tech: Node.js, Express, MongoDB, OpenAI.
+- Portfolio Website: Personal portfolio built with React and nice UI.
+- Task Manager App: Full-stack app with authentication and CRUD (React, Node.js, MongoDB).
+
+Skills:
+HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, AI/ML.
+
+When asked about "me", "your work", or "portfolio", respond as if you are Siddaji describing the projects and skills concisely and professionally.
+If the user asks for code examples or how the projects were built, give short clear steps and relevant tech stack.`;
+
+export default function SmartChatBot() {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [{ role: "assistant", content: "Hi 👋 I'm Siddaji's portfolio assistant. Ask me about his projects, skills or experience." }];
+    } catch {
+      return [{ role: "assistant", content: "Hi 👋 I'm Siddaji's portfolio assistant. Ask me about his projects, skills or experience." }];
+    }
+  });
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const messagesRef = useRef(null);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    // auto-scroll
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  }, [messages]);
 
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  const apiKey = import.meta.env.VITE_GROQ_API_KEY;
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const quickPrompts = [
+    "Tell me about your AI Chatbot project",
+    "What are Siddaji's top skills?",
+    "Show me your portfolio projects",
+    "How did you build the Task Manager app?"
+  ];
 
+  const sendToAPI = async (allMessages) => {
+    if (!apiKey) {
+      throw new Error("API key missing (set VITE_GROQ_API_KEY in .env)");
+    }
+    const payload = {
+      model: "llama-3.1-8b-instant",
+      messages: [
+        { role: "system", content: systemPrompt },
+        ...allMessages.map(m => ({ role: m.role, content: m.content }))
+      ],
+      max_tokens: 300
+    };
+
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    return { ok: res.ok, data };
+  };
+
+  const handleSend = async (text) => {
+    if (!text?.trim()) return;
     setError("");
-    const newMessages = [...messages, { from: "user", text: input }];
+    const newMessages = [...messages, { role: "user", content: text }];
     setMessages(newMessages);
-    setInput("");
     setLoading(true);
 
-    if (!apiKey) {
-      setError("❌ API key is missing. Add VITE_OPENAI_API_KEY in your .env file.");
-      setLoading(false);
-      return;
-    }
-
     try {
-      console.log("Sending request to OpenAI...");
-      console.log("API Key Present:", !!apiKey);
+      const { ok, data } = await sendToAPI(newMessages);
 
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            { role: "system", content: "You are an AI portfolio assistant." },
-            ...newMessages.map(m => ({
-              role: m.from === "user" ? "user" : "assistant",
-              content: m.text
-            }))
-          ],
-          max_tokens: 200
-        })
-      });
+      if (!ok || data.error) {
+        // handle quota / model errors
+        const msg = data?.error?.message || "Unknown API error";
+        if (msg.toLowerCase().includes("quota")) {
+          setError("⚠️ You have exceeded your API quota. Add billing or use another key.");
+        } else if (msg.toLowerCase().includes("decommission") || msg.toLowerCase().includes("model")) {
+          setError("⚠️ Model error: " + msg);
+        } else {
+          setError("⚠️ API error: " + msg);
+        }
+        setMessages(prev => [...prev, { role: "assistant", content: "Sorry — I couldn't get a response right now." }]);
+        return;
+      }
 
-      const data = await response.json();
-      console.log("OpenAI Response:", data);
-
-      if (response.ok && data.choices && data.choices.length > 0) {
-        const botMessage = data.choices[0].message.content;
-        setMessages(prev => [...prev, { from: "bot", text: botMessage }]);
+      // Groq format: choices[0].message.content
+      const reply = data.choices?.[0]?.message?.content;
+      if (reply) {
+        setMessages(prev => [...prev, { role: "assistant", content: reply }]);
       } else {
-        setError("⚠️ OpenAI API Error: " + (data.error?.message || "Unknown error"));
-        setMessages(prev => [...prev, { from: "bot", text: "Sorry, something went wrong." }]);
+        setMessages(prev => [...prev, { role: "assistant", content: "⚠️ No reply from AI model." }]);
       }
     } catch (err) {
       console.error(err);
       setError("⚠️ Network or API error: " + err.message);
-      setMessages(prev => [...prev, { from: "bot", text: "Sorry, something went wrong." }]);
+      setMessages(prev => [...prev, { role: "assistant", content: "⚠️ Error connecting to AI." }]);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    setLoading(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    handleSend(input);
+    setInput("");
+  };
+
+  const clearHistory = () => {
+    setMessages([{ role: "assistant", content: "Hi 👋 I'm Siddaji's portfolio assistant. Ask me about his projects, skills or experience." }]);
+    localStorage.removeItem(STORAGE_KEY);
+    setError("");
   };
 
   return (
-    <div className={`chatbot-container ${isOpen ? "open" : ""}`}>
-      <div className="chatbot-header" onClick={toggleChat}>
-        💬 AI Chat
-        <span className="close-btn">{isOpen ? "×" : ""}</span>
-      </div>
+    <>
+      {!open && (
+        <button className="chat-toggle" onClick={() => setOpen(true)} aria-label="Open chat">
+          <FaComments size={20} />
+        </button>
+      )}
 
-      {isOpen && (
-        <div className="chatbot-body">
-          <div className="chat-messages">
+      {open && (
+        <div className="chatbot-wrapper">
+          <div className="chat-header">
+            <div>
+              <strong>Siddaji — AI Assistant</strong>
+              <div className="sub">Ask about projects, skills or experience</div>
+            </div>
+            <div className="header-actions">
+              <button className="clear-btn" onClick={clearHistory}>Clear</button>
+              <button className="close-btn" onClick={() => setOpen(false)} aria-label="Close chat"><FaTimes/></button>
+            </div>
+          </div>
+
+          <div className="chat-window" ref={messagesRef}>
             {messages.map((m, i) => (
-              <div key={i} className={`message ${m.from}`}>
-                {m.text}
+              <div key={i} className={`msg ${m.role}`}>
+                <div className="bubble">{m.content}</div>
               </div>
             ))}
-            {loading && <div className="message bot">Typing...</div>}
+
+            {loading && (
+              <div className="msg assistant typing">
+                <div className="bubble">
+                  <span className="dot" />
+                  <span className="dot" />
+                  <span className="dot" />
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="quick-prompts">
+            {quickPrompts.map((q, i) => (
+              <button key={i} className="chip" onClick={() => handleSend(q)}>{q}</button>
+            ))}
           </div>
 
           {error && <div className="chat-error">{error}</div>}
 
-          <div className="chat-input">
+          <form className="chat-input" onSubmit={onSubmit}>
             <input
-              type="text"
-              placeholder="Type a message..."
               value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={e => e.key === "Enter" && sendMessage()}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type a message..."
             />
-            <button onClick={sendMessage}>Send</button>
-          </div>
+            <button type="submit" disabled={loading}>Send</button>
+          </form>
         </div>
       )}
-
-      {!isOpen && <div className="chatbot-toggle">💬</div>}
-    </div>
+    </>
   );
 }

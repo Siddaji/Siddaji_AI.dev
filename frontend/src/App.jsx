@@ -1,4 +1,4 @@
-// src/App.jsx
+
 import React, { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Home from "./Pages/Home";
@@ -35,15 +35,3 @@ export default function App() {
     </>
   );
 }
-
-
-<>
-      <Navbar />
-      <main>
-        <Home />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
-    </>
