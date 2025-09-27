@@ -34,7 +34,7 @@ export default function SmartChatBot() {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    // auto-scroll
+    
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
@@ -86,7 +86,7 @@ export default function SmartChatBot() {
       const { ok, data } = await sendToAPI(newMessages);
 
       if (!ok || data.error) {
-        // handle quota / model errors
+        
         const msg = data?.error?.message || "Unknown API error";
         if (msg.toLowerCase().includes("quota")) {
           setError("⚠️ You have exceeded your API quota. Add billing or use another key.");
@@ -99,7 +99,7 @@ export default function SmartChatBot() {
         return;
       }
 
-      // Groq format: choices[0].message.content
+    
       const reply = data.choices?.[0]?.message?.content;
       if (reply) {
         setMessages(prev => [...prev, { role: "assistant", content: reply }]);

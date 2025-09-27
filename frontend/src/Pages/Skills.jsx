@@ -5,10 +5,10 @@ export default function Skills() {
   const skills = [
     { name: "HTML", img: "/skills/html.png", level: "90%" },
     { name: "CSS", img: "/skills/css.png", level: "85%" },
-    { name: "JavaScript", img: "/skills/js.png", level: "80%" },
+    { name: "JavaScript", img: "/skills/javascript.png", level: "80%" },
     { name: "React", img: "/skills/react.png", level: "75%" },
-    { name: "Node.js", img: "/skills/node.png", level: "70%" },
-    { name: "AI / ML", img: "/skills/ai.png", level: "60%" },
+    { name: "Node.js", img: "/skills/nodejs.png", level: "70%" },
+    { name: "Express-js", img: "/skills/express-js.png", level: "60%" },
   ];
 
   return (
