@@ -187,3 +187,4 @@ export default function SmartChatBot() {
     </>
   );
 }
+export { SmartChatBot as chatBot };

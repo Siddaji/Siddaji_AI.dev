@@ -1,23 +1,26 @@
 import React from "react";
-import useActiveSection from "../hooks/useActiveSection";
 
-
-export default function Navbar() {
-  const active = useActiveSection();
-
+export default function Navbar({ theme, setTheme }) {
   return (
-    <header className="navbar">
-      <div className="navbar-inner">
-        <div className="logo">Siddaji</div>
+    <nav className="navbar">
+      <h2 className="logo">Siddaji.dev</h2>
 
-        <nav className="nav-links">
-          <a href="#home" className={`nav-link ${active === "home" ? "active" : ""}`}>Home</a>
-          <a href="#about" className={`nav-link ${active === "about" ? "active" : ""}`}>About</a>
-          <a href="#skills" className={`nav-link ${active === "skills" ? "active" : ""}`}>Skills</a>
-          <a href="#projects" className={`nav-link ${active === "projects" ? "active" : ""}`}>Projects</a>
-          <a href="#contact" className={`nav-link ${active === "contact" ? "active" : ""}`}>Contact</a>
-        </nav>
-      </div>
-    </header>
+      <ul className="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button
+        className="theme-toggle"
+        
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      >
+        
+        {theme === "dark" ? "☀️" : "🌙"}
+      </button>
+    </nav>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 
-export default function Home() {
+
+export default function Home({ theme}) {
   const [displayText, setDisplayText] = useState("");
   const fullText = "🚀 AI Enthusiast | 💻 Fullstack Developer";
 
@@ -16,11 +17,9 @@ export default function Home() {
   }, []);
 
   return (
-    <section id="home" className="section home reveal">
+    <section id="home" className={theme}>
       <div className="home-content">
-        <h1>
-          Hi, I’m <span>Siddaji</span>
-        </h1>
+        <h1>Hi, I’m <span>Siddaji</span></h1>
         <p className="typing-effect">
           {displayText}
           <span className="cursor"></span>
