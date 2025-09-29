@@ -1,4 +1,4 @@
-// src/pages/Contact.jsx
+
 import React from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter } from "react-icons/fa";
 
@@ -9,7 +9,7 @@ export default function Contact() {
       <h2 className="section-title">Contact</h2>
 
       <div className="contact-grid">
-        {/* Contact Info Card */}
+       
         <div className="contact-card">
           <h3>Let's Talk</h3>
           <p>
@@ -45,7 +45,7 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Contact Form */}
+        
         <form
           className="contact-form"
           onSubmit={(e) => {

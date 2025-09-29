@@ -28,6 +28,7 @@ export default function Home({ theme}) {
           <a href="#projects" className="btn primary">View Projects</a>
           <a href="#contact" className="btn secondary">Contact Me</a>
         </div>
+        <a href="/path/to/Siddaji_Resume.pdf" download className="btn secondary-alt">Download CV</a>
       </div>
     </section>
   );
