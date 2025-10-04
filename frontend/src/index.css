@@ -846,3 +846,152 @@ body {
   from { opacity: 0; transform: translateY(10px) }
   to { opacity: 1; transform: none }
 }
+
+/*Tools*/
+
+.tools {
+  text-align: center;
+  padding: 60px 20px;
+  transition: 0.4s ease, color 0.4s ease;
+}
+
+.tools.light {
+  background: #f9f9f9;
+  color: #222;
+}
+
+.tools.dark {
+  background: #0e0e0e;
+  color: #eee;
+}
+
+.tools h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.tool-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  width: 120px;
+}
+
+.tool-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tool-card p {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+
+/*Timeline*/
+.timeline {
+  padding: 70px 20px;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.timeline.light {
+  background: #fafafa;
+  color: #222;
+}
+
+.timeline.dark {
+  background: #0f0f0f;
+  color: #f1f1f1;
+}
+
+.timeline h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.timeline-container {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.timeline-container::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  background: linear-gradient(180deg, #007bff, #00d4ff);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  padding: 20px 40px;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+.timeline-content {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline.light .timeline-content {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.timeline.dark .timeline-content {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px);
+}
+
+.timeline-year {
+  font-weight: 700;
+  color: #00d4ff;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: auto;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .timeline-item {
+    width: 100%;
+    left: 0 !important;
+    margin-bottom: 30px;
+  }
+  .timeline-container::after {
+    left: 10px;
+  }
+}
+
+

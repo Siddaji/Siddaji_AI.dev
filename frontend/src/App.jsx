@@ -6,6 +6,8 @@ import Skills from "./Pages/Skills";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import ChatBot from "./components/chatBot";
+import Tools from "./components/Tools";
+import Timeline from "./components/Timeline";
  
 export default function App() {
   
@@ -32,12 +34,14 @@ export default function App() {
   return (
     <>
       <Navbar theme={theme} setTheme={setTheme} />
-        <Home theme={theme} /> 
+        <Home  /> 
         <About />
         <Skills />
         <Projects />
         <Contact />
         <ChatBot/>
+        <Tools/>
+        <Timeline/>
     </>
   );
 }
