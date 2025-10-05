@@ -6,8 +6,8 @@ import Skills from "./Pages/Skills";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import ChatBot from "./components/chatBot";
-import Tools from "./components/Tools";
 import Timeline from "./components/Timeline";
+import EndingBanner from "./components/EndingBanner";
  
 export default function App() {
   
@@ -40,8 +40,8 @@ export default function App() {
         <Projects />
         <Contact />
         <ChatBot/>
-        <Tools/>
         <Timeline/>
+        <EndingBanner/>
     </>
   );
 }
