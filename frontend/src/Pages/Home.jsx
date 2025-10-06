@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
+import myPhoto from "../assets/profile.png"; 
 
-
-
-export default function Home({ theme}) {
+export default function Home({ theme }) {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "🚀 AI Enthusiast | 💻 Fullstack Developer";
+  const fullText = "🚀 CyberSecurity Enthusiast | 💻 Fullstack Developer";
 
   useEffect(() => {
     let i = 0;
@@ -17,18 +16,25 @@ export default function Home({ theme}) {
   }, []);
 
   return (
-    <section id="home" className={theme}>
-      <div className="home-content">
-        <h1>Hi, I’m <span>Siddaji</span></h1>
-        <p className="typing-effect">
-          {displayText}
-          <span className="cursor"></span>
-        </p>
-        <div className="buttons">
-          <a href="#projects" className="btn primary">View Projects</a>
-          <a href="#contact" className="btn secondary">Contact Me</a>
+    <section id="home" className={`home ${theme}`}>
+      <div className="home-container">
+        <div className="home-content">
+          <h1>
+            Hi, I’m <span>Siddaji</span>
+          </h1>
+          <p className="typing-effect">
+            {displayText}
+            <span className="cursor"></span>
+          </p>
+          <div className="buttons">
+            <a href="#projects" className="btn primary">View Projects</a>
+            <a href="#contact" className="btn secondary">Contact Me</a>
+          </div>
         </div>
-        <a href="/path/to/Siddaji_Resume.pdf" download className="btn secondary-alt">Download CV</a>
+
+        <div className="home-photo">
+          <img src={myPhoto} alt="Siddaji" />
+        </div>
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ export default function About() {
       <div className="about-card">
         <h2>About Me</h2>
         <p>
-          I’m <strong>Siddaji</strong>, an AI enthusiast and full-stack developer.
+          I’m <strong>Siddaji</strong>, an CyberSecurity enthusiast and full-stack developer.
           I build intelligent web applications combining Node, React and ML services.
         </p>
       </div>

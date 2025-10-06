@@ -104,129 +104,114 @@ body {
 }
 
 /* ===== Home Section ===== */
-#home {
-  height: 100vh;
+.home {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-  background: linear-gradient(270deg, var(--card), var(--gradient-end), #2a3e5e, #34455a);
-  background-size: 800% 800%;
-  animation: gradientBG 20s ease infinite;
-  transition: background 0.3s;
+  justify-content: center;
+  padding: 80px 20px;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
-.light #home {
-  background: linear-gradient(270deg, var(--gradient-start), var(--bg)); 
+.home.light {
+  background: #f9f9f9;
+  color: #222;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.home.dark {
+  background: #0e0e0e;
+  color: #f5f5f5;
+}
+
+.home-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  max-width: 1100px;
+  width: 100%;
+}
+
+.home-content {
+  flex: 1;
 }
 
 .home-content h1 {
-  font-size: 3rem;
-  color: var(--text); 
-  transition: color 0.3s;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
-.home-content h1 span {
-  color: var(--primary); 
-  transition: color 0.3s;
+.home-content span {
+  color: #007bff;
 }
 
 .typing-effect {
   font-size: 1.2rem;
-  color: var(--text); 
-  margin-top: 10px;
-  transition: color 0.3s;
+  margin-bottom: 30px;
 }
 
-.cursor {
-  display: inline-block;
-  background: var(--primary); 
-  width: 2px;
-  margin-left: 2px;
-  animation: blink 0.8s infinite;
-  transition: background 0.3s;
-}
-
-@keyframes blink {
-  0%, 50%, 100% { background: var(--primary); }
-  25%, 75% { background: transparent; }
-}
-
-.buttons {
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.btn {
-  padding: 12px 25px;
-  border-radius: 30px;
-  font-weight: bold;
+.buttons a {
+  margin-right: 15px;
+  padding: 10px 25px;
+  border-radius: 25px;
   text-decoration: none;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
 .btn.primary {
-  background: var(--primary);
-  color: var(--bg); 
+  background: #007bff;
+  color: #fff;
 }
-
-.btn.primary:hover {
-  background: #3b82f6; 
-  transform: scale(1.05);
-}
-
 
 .btn.secondary {
   background: transparent;
-  border: 2px solid var(--text); 
-  color: var(--text);
+  border: 2px solid #007bff;
+  color: #007bff;
 }
 
-.btn.secondary:hover {
-  background: var(--text); 
-  color: var(--bg); 
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.home-photo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.home-photo img {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #007bff;
+  box-shadow: 0 0 25px rgba(0, 123, 255, 0.4);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.home-photo img:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(0, 212, 255, 0.6);
 }
-
-
-.btn.secondary-alt {
-  display: inline-block;
-  background: transparent;
-  border: 2px solid var(--primary);
-  color: var(--primary);
-  margin-top: 10px;
-}
-
-.btn.secondary-alt:hover {
-  background: var(--primary);
-  color: var(--bg); 
-  transform: scale(1.05);
-}
-
-
 
 @media (max-width: 768px) {
-  .home-content h1 { font-size: 2rem; }
-  .typing-effect { font-size: 1rem; }
-  .buttons { 
-    flex-direction: column; 
-    gap: 15px; 
+  .home-container {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .home-photo {
+    margin-bottom: 30px;
   }
 }
+
 
 /* ===== About ===== */
 .about {
   background: linear-gradient(-45deg, var(--card), var(--bg), var(--card)); 
   padding: 60px 20px;
-  transition: background 0.3s;
+  transition:0.3s;
 }
 
 .light .about {
@@ -240,7 +225,7 @@ body {
   background: var(--card); 
   border-radius: 15px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, 0.3s;
 }
 
 .about-card:hover {
@@ -262,7 +247,7 @@ body {
   border-radius: 15px;
   width: 250px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,0.3s;
 }
 
 .light .about-box {
@@ -284,7 +269,7 @@ body {
 .skills {
   background: linear-gradient(135deg, var(--card), var(--bg));
   padding: 60px 20px;
-  transition: background 0.3s;
+  transition: 0.3s;
 }
 
 .light .skills {
@@ -316,7 +301,7 @@ body {
   padding: 20px;
   min-width: 180px;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, 0.3s;
   position: relative;
 }
 
@@ -351,7 +336,7 @@ body {
   border-radius: 4px;
   overflow: hidden;
   margin: 10px 0;
-  transition: background 0.3s;
+  transition:  0.3s;
 }
 
 .progress-fill {
@@ -359,7 +344,7 @@ body {
   height: 100%;
   width: 0;
   animation: fillProgress 2s forwards ease-in-out;
-  transition: background 0.3s;
+  transition:  0.3s;
 }
 
 .skill-level {
@@ -386,7 +371,7 @@ body {
 .projects {
   background: linear-gradient(135deg, var(--bg), var(--card));
   padding: 60px 20px;
-  transition: background 0.3s;
+  transition:  0.3s;
 }
 
 .light .projects {
@@ -403,7 +388,7 @@ body {
   background: var(--card); 
   border-radius: 15px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease,  0.3s;
   display: flex;
   flex-direction: column;
 }
@@ -458,7 +443,7 @@ body {
   border-radius: 20px;
   font-size: 0.8rem;
   color: var(--bg); 
-  transition: background 0.3s, color 0.3s;
+  transition:  0.3s, color 0.3s;
 }
 
 .card-actions {
@@ -511,7 +496,7 @@ body {
 ============================== */
 .contact {
   background: linear-gradient(180deg, var(--bg), var(--card));
-  transition: background 0.3s;
+  transition:  0.3s;
 }
 
 .light .contact {
@@ -852,7 +837,7 @@ body {
 .timeline {
   padding: 70px 20px;
   text-align: center;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:  0.3s ease, color 0.3s ease;
 }
 
 .timeline.light {
@@ -1001,7 +986,7 @@ body {
 
 .ending-banner.light .banner-btn {
   background: #007bff;
-  color: #fff;
+  color: #0f0e0e;
 }
 
 .ending-banner.dark .banner-btn {
