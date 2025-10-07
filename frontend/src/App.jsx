@@ -7,6 +7,7 @@ import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import ChatBot from "./components/chatBot";
 import Timeline from "./components/Timeline";
+import Feedback from "./components/Feedback";
 import EndingBanner from "./components/EndingBanner";
  
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
         <Contact />
         <ChatBot/>
         <Timeline/>
+         <Feedback/>
         <EndingBanner/>
     </>
   );

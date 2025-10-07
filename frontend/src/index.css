@@ -999,4 +999,154 @@ body {
   box-shadow: 0 5px 15px rgba(8, 175, 231, 0.951);
 }
 
+/*feedback*/
 
+
+
+.feedback-section {
+  padding: 80px 20px;
+  text-align: center;
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.4s ease-in-out;
+}
+
+.feedback-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+
+.feedback-form {
+  max-width: 600px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.feedback-input {
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  resize: none;
+  color: var(--text);
+  font-size: 1rem;
+  min-height: 100px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.feedback-input:focus {
+  box-shadow: 0 0 12px var(--accent);
+  border-color: var(--accent);
+}
+
+.feedback-btn {
+  align-self: center;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-btn:hover {
+  transform: scale(1.05);
+  background: var(--accent-dark);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.feedback-display {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+.feedback-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--accent);
+  border-radius: 15px;
+  padding: 18px 22px;
+  text-align: left;
+  backdrop-filter: blur(8px);
+  animation: slideUpFade 0.6s ease both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-text {
+  font-size: 1.05rem;
+  margin-bottom: 5px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.feedback-time {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  display: block;
+  text-align: right;
+}
+
+.no-feedback {
+  color: #aaa;
+  font-style: italic;
+  animation: fadeIn 1s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+body.light {
+  --bg: #f9f9f9;
+  --text: #111;
+  --accent: #007bff;
+  --accent-dark: #0056b3;
+}
+
+body.dark {
+  --bg: #0e0e10;
+  --text: #f9f9f9;
+  --accent: #00aaff;
+  --accent-dark: #0077cc;
+}
