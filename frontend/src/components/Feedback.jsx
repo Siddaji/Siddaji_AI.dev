@@ -1,53 +1,101 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-export default function FeedbackSection() {
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [message, setMessage] = useState("");
+export default function Feedback({ theme }) {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [submittedData, setSubmittedData] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!message.trim()) return;
-    const newFeedback = {
-      id: Date.now(),
-      text: message,
-      time: new Date().toLocaleString(),
-    };
-    setFeedbacks([newFeedback, ...feedbacks]);
-    setMessage("");
+    setSubmittedData({
+      name: formData.name,
+      message: formData.message,
+    });
+    setFormData({ name: "", email: "", message: "" });
+
+    setTimeout(() => setSubmittedData(null), 4000);
   };
 
   return (
-    <section id="feedback" className="feedback-section">
-      <h2 className="feedback-title">💬 Your Feedback Matters</h2>
+    <section id="feedback" className={`feedback ${theme}`}>
+      <motion.div
+        className="feedback-container"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="feedback-title">💬 Share Your Feedback</h2>
+        <p className="feedback-subtext">
+          I’d love to hear your thoughts or suggestions!
+        </p>
 
-      <form onSubmit={handleSubmit} className="feedback-form">
-        <textarea
-          className="feedback-input"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Share your thoughts, ideas, or appreciation..."
-        />
-        <button className="feedback-btn" type="submit">
-          Send Feedback 🚀
-        </button>
-      </form>
+        {!submittedData ? (
+          <motion.form
+            className="feedback-form"
+            onSubmit={handleSubmit}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: submittedData ? 0 : 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Your Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Your Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Your Feedback..."
+              value={formData.message}
+              onChange={handleChange}
+              required
+            ></textarea>
 
-      <div className="feedback-display">
-        {feedbacks.length === 0 ? (
-          <p className="no-feedback">No feedback yet. Be the first to share!</p>
-        ) : (
-          feedbacks.map((f, index) => (
-            <div
-              key={f.id}
-              className="feedback-card"
-              style={{ animationDelay: `${index * 0.15}s` }}
+            <motion.button
+              type="submit"
+              className="feedback-btn"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <p className="feedback-text">“{f.text}”</p>
-              <span className="feedback-time">{f.time}</span>
+              ✨ Submit Feedback
+            </motion.button>
+          </motion.form>
+        ) : (
+          <motion.div
+            className="floating-card"
+            initial={{ opacity: 0, scale: 0.8, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <motion.div
+              className="glow-ring"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            />
+            <div className="floating-content">
+              <h3>🌟 Thank You, {submittedData.name}!</h3>
+              <p>"{submittedData.message}"</p>
+              <p className="small-text">Your feedback has been received 💖</p>
             </div>
-          ))
+          </motion.div>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 }
